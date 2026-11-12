@@ -1,5 +1,5 @@
 import express from 'express';
-import {getReservations, getReservation, addReservation, updateReservation, cancelReservation} from '../controllers/reservationController.js';
+import {getReservations, getReservation, addReservation, updateReservation, cancelReservation} from '../controllers/reservationControllers.js';
 // Import the necessary functions from the reservationController.js file
 
 const router = express.Router(); // Create a new router instance
