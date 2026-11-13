@@ -1,14 +1,18 @@
-import http from "http";
-import express from "express";
+import express from 'express';
+import reservationRoutes from './routes/reservationRoutes.js';
+
 const app = express();
-const port = 3000;
-const hostname = '127.0.0.1';
-const server = http.createServer((req, res) => {
-    if (req.url = '/'){
-        res.statusCode = 200;
-        res.end("welcome to restaurant reservation")
-    }
+
+// Middleware to read JSON request bodies
+app.use(express.json());
+
+
+// Home route
+app.get('/', (req, res) => {
+    res.send('Welcome to restaurant reservation');
 });
-server.listen(port, ()=>{
-    console.log(`server running at http://${hostname}:${port}/`);
-} )
+
+// Connect reservation routes
+app.use('/reservations', reservationRoutes);
+
+export default app;
