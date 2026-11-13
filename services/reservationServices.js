@@ -1,49 +1,48 @@
-const reservations = [
-  { id: 1, name: "Jacqueline", guests: 8, date: "2026-11-15", time: "19:00", status: "confirmed" },
-  { id: 2, name: "Adonis", guests: 2, date: "2026-12-23", time: "12:00", status: "confirmed" },
-]
+import { readReservations, writeReservations } from './fileService.js';
 
-let nextId = reservations.length + 1;
+function getAllReservations() {
+  return readReservations();
+}
 
-export const getAllReservations = () => reservations;
+function getReservationById(id) {
+  const allReservations = readReservations();
+  return allReservations.find((reservation) => reservation.id === id) || null;
+}
 
-export const getReservationById = (id) => reservations.find((reservation) => reservation.id === id) || null;
-
-export const createReservation = ({ name, guests, date, time }) => {
-  const newReservation = {
-    id: nextId++,
-    name,
-    guests,
-    date,
-    time,
-    status: "confirmed",
-  };
-
-  reservations.push(newReservation);
-
+function createReservation(data) {
+  const allReservations = readReservations();
+  const newReservation = { ...data, id: Date.now(), status: data.status || "confirmed" };
+  allReservations.push(newReservation);
+  writeReservations(allReservations);
   return newReservation;
 }
 
-export const updateReservationById = (id, {name, guests, date, time }) => {
-  const reservation = getReservationById(id);
+function deleteReservation(id) {
+  const allReservations = readReservations();
+  const filtered = allReservations.filter((reservation) => reservation.id !== id);
+  writeReservations(filtered);
+  return filtered.length !== allReservations.length;
+}
 
+function updateReservationById(id, { name, guests, date, time }) {
+  const allReservations = readReservations();
+  const reservation = allReservations.find((reservation) => reservation.id === id);
   if (!reservation) return null;
-
-  reservation.name = name;
-  reservation.guests = guests;
-  reservation.date = date;
-  reservation.time = time;
-
+  if (name !== undefined) reservation.name = name;
+  if (guests !== undefined) reservation.guests = guests;
+  if (date !== undefined) reservation.date = date;
+  if (time !== undefined) reservation.time = time;
+  writeReservations(allReservations);
   return reservation;
 }
 
-
-export const cancelReservation = (id) => {
-  const reservation = getReservationById(id);
-
+function cancelReservation(id) {
+  const allReservations = readReservations();
+  const reservation = allReservations.find((reservation) => reservation.id === id);
   if (!reservation) return null;
-
   reservation.status = "cancelled";
-
+  writeReservations(allReservations);
   return reservation;
 }
+
+export { getAllReservations, getReservationById, createReservation, deleteReservation, updateReservationById, cancelReservation };
