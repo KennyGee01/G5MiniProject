@@ -17,6 +17,8 @@ export const createReservation = ({ name, guests, date, time }) => {
     date,
     time,
     status: "confirmed",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   };
 
   reservations.push(newReservation);
@@ -33,6 +35,7 @@ export const updateReservationById = (id, {name, guests, date, time }) => {
   reservation.guests = guests;
   reservation.date = date;
   reservation.time = time;
+  reservation.updatedAt = new Date().toISOString();
 
   return reservation;
 }
@@ -44,6 +47,7 @@ export const cancelReservation = (id) => {
   if (!reservation) return null;
 
   reservation.status = "cancelled";
+  reservation.updatedAt = new Date().toISOString();
 
   return reservation;
 }
