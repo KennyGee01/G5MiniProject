@@ -9,7 +9,24 @@ export const getAllReservations = () => reservations;
 
 export const getReservationById = (id) => reservations.find((reservation) => reservation.id === id) || null;
 
+export const isBooked = (date, time) => {
+  const booking = reservations.find(
+    (reservation) => 
+      reservation.date === date && 
+      reservation.time === time &&
+      reservation.status !== "cancelled"
+  );
+  if (booking) {
+    return true;
+  }
+  return false;
+}
+
 export const createReservation = ({ name, guests, date, time }) => {
+  if (isBooked(date, time)) {
+    return null; // Return null if the date and time are already booked
+  }
+  
   const newReservation = {
     id: nextId++,
     name,
