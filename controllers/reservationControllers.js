@@ -1,50 +1,78 @@
 import * as reservationService from "../services/reservationServices.js";
-
-// import { Request, Response } from "express";
+import { statusCode } from "../utils/helpers.js";
 
 export const getReservations = (_req, res) => {
-  const reservations = reservationService.getAllReservations();
-  res.status(200).json(reservations);
+  try {
+    const reservations = reservationService.getAllReservations();
+    res.status(statusCode.OK).json(reservations);
+  } catch (error) {
+    return res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .json({ error: error.message });
+  }
 };
 
 export const getReservation = (req, res) => {
-  const reservation = reservationService.getReservationById(
-    parseInt(req.params.id),
-  );
+  try {
+    const reservation = reservationService.getReservationById(
+      parseInt(req.params.id),
+    );
 
-  if (!reservation) {
-    return res.status(404).json({ error: "Reservation not found" });
+    if (!reservation) {
+      return res
+        .status(statusCode.NOT_FOUND)
+        .json({ error: "Reservation not found" });
+    }
+
+    res.status(statusCode.OK).json(reservation);
+  } catch (error) {
+    return res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .json({ error: error.message });
   }
-
-  res.status(200).json(reservation);
 };
 
 export const addReservation = (req, res) => {
-  const newReservation = reservationService.createReservation(req.body);
+  try {
+    const newReservation = reservationService.createReservation(req.body);
 
-  res.status(201).json(newReservation);
+    res.status(statusCode.CREATED).json(newReservation);
+  } catch (error) {
+    return res.status(statusCode.BAD_REQUEST).json({ error: error.message });
+  }
 };
 
 export const updateReservation = (req, res) => {
   const updatedReservation = reservationService.updateReservationById(
     parseInt(req.params.id),
-    req.body
+    req.body,
   );
 
   if (!updatedReservation) {
-    return res.status(404).json({ error: "Reservation not found" });
+    return res
+      .status(statusCode.NOT_FOUND)
+      .json({ error: "Reservation not found" });
   }
 
-  res.status(200).json(updatedReservation);
+  res.status(statusCode.OK).json(updatedReservation);
 };
 
-
 export const cancelReservation = (req, res) => {
-  const reservation = reservationService.cancelReservation(parseInt(req.params.id));
+  try {
+    const reservation = reservationService.cancelReservation(
+      parseInt(req.params.id),
+    );
 
-  if (!reservation) {
-    return res.status(404).json({ error: "Reservation not found" });
+    if (!reservation) {
+      return res
+        .status(statusCode.NOT_FOUND)
+        .json({ error: "Reservation not found" });
+    }
+
+    res.status(statusCode.OK).json(reservation);
+  } catch (error) {
+    return res
+      .status(statusCode.INTERNAL_SERVER_ERROR)
+      .json({ error: error.message });
   }
-  
-  res.status(200).json(reservation);
-}
+};
