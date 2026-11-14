@@ -14,6 +14,8 @@ app.get("/", (_req, res) => {
 
 app.use("/reservations", reservationRoutes); // mount the reservation API
 
-app.listen(port, () => {
-  console.log(`server running at http://${hostname}:${port}/`);
-});
+export default app
+
+// app.listen(port, () => {
+//   console.log(`server running at http://${hostname}:${port}/`);
+// });
