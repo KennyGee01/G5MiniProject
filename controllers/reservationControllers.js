@@ -1,4 +1,4 @@
-import * as reservationService from "../services/reservationServices";
+import * as reservationService from "../services/reservationServices.js";
 
 // import { Request, Response } from "express";
 
