@@ -21,6 +21,10 @@ export const getReservation = (req, res) => {
 
 export const addReservation = (req, res) => {
   const newReservation = reservationService.createReservation(req.body);
+  
+  if (!newReservation) {
+    return res.status(400).json({ error: "Unavailable" });
+  }
 
   res.status(201).json(newReservation);
 };
