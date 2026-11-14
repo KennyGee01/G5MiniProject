@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "name": "Joseph",
+    "guests": 10,
+    "date": "2026-11-15",
+    "time": "19:00",
+    "id": 1794668244325,
+    "status": "confirmed"
+  },
+  {
+    "name": "John",
+    "guests": 20,
+    "date": "2026-11-15",
+    "time": "19:00",
+    "id": 1794668420517,
+    "status": "cancelled"
+  },
+  {
+    "name": "Peter",
+    "guests": 10,
+    "date": "2026-11-15",
+    "time": "19:00",
+    "id": 1794668428086,
+    "status": "confirmed"
+  },
+  {
+    "name": "Adeolu",
+    "guests": 10,
+    "date": "2026-11-15",
+    "time": "19:00",
+    "id": 1794668437144,
+    "status": "confirmed"
+  },
+  {
+    "name": "Brittany",
+    "guests": 10,
+    "date": "2026-11-15",
+    "time": "19:00",
+    "id": 1794668443888,
+    "status": "confirmed"
+  }
+]
