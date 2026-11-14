@@ -1,54 +1,68 @@
-const reservations = [
-  {
-    id: 1,
-    name: "Jacqueline",
-    guests: 8,
-    date: "2026-11-15",
-    time: "19:00",
-    status: "confirmed",
-  },
-  {
-    id: 2,
-    name: "Adonis",
-    guests: 2,
-    date: "2026-12-23",
-    time: "12:00",
-    status: "confirmed",
-  },
-];
+import { readReservations, writeReservations } from "./fileService.js";
 
-let nextId = reservations.length + 1;
+// Retrieve all reservations
+function getAllReservations() {
+  return readReservations();
+}
 
-export const getAllReservations = () => reservations;
+// Retrieve a reservation by ID
+function getReservationById(id) {
+  if (!id || isNaN(id)) {
+    throw new Error("Invalid reservation ID");
+  }
 
-export const getReservationById = (id) =>
-  reservations.find((reservation) => reservation.id === id) || null;
+  const allReservations = readReservations();
 
-export const createReservation = ({ name, guests, date, time }) => {
-  if (!name || !guests || !date || !time) {
+  return (
+    allReservations.find(
+      (reservation) => Number(reservation.id) === Number(id),
+    ) || null
+  );
+}
+
+// Create a reservation
+function createReservation(data) {
+  if (!data.name || !data.guests || !data.date || !data.time) {
     throw new Error("Missing required fields: name, guests, date, time");
   }
 
+  const allReservations = readReservations();
+
+  // Generate the next sequential numeric ID
+  const nextId =
+    allReservations.reduce(
+      (maxId, reservation) => Math.max(maxId, Number(reservation.id) || 0),
+      0,
+    ) + 1;
+
+  const now = new Date().toISOString();
+
   const newReservation = {
-    id: nextId++,
-    name,
-    guests,
-    date,
-    time,
+    ...data,
+    id: nextId,
     status: "confirmed",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    createdAt: now,
+    updatedAt: now,
   };
 
-  reservations.push(newReservation);
+  allReservations.push(newReservation);
+
+  writeReservations(allReservations);
 
   return newReservation;
-};
+}
 
-export const updateReservationById = (id, { name, guests, date, time }) => {
-  if (!id) throw new Error("Missing required field: id");
+// Update an existing reservation
+function updateReservationById(id, { name, guests, date, time }) {
+  if (!id || isNaN(id)) {
+    throw new Error("Invalid reservation ID");
+  }
 
-  const reservation = getReservationById(id);
+  const allReservations = readReservations();
+
+  const reservation = allReservations.find(
+    (reservation) => Number(reservation.id) === Number(id),
+  );
 
   if (!reservation) return null;
 
@@ -57,24 +71,39 @@ export const updateReservationById = (id, { name, guests, date, time }) => {
   if (date !== undefined) reservation.date = date;
   if (time !== undefined) reservation.time = time;
 
-  reservation.name = name;
-  reservation.guests = guests;
-  reservation.date = date;
-  reservation.time = time;
   reservation.updatedAt = new Date().toISOString();
 
+  writeReservations(allReservations);
+
   return reservation;
-};
+}
 
-export const cancelReservation = (id) => {
-  if (!id) throw new Error("Missing required field: id");
+// Cancel a reservation (soft cancellation)
+function cancelReservation(id) {
+  if (!id || isNaN(id)) {
+    throw new Error("Invalid reservation ID");
+  }
 
-  const reservation = getReservationById(id);
+  const allReservations = readReservations();
+
+  const reservation = allReservations.find(
+    (reservation) => Number(reservation.id) === Number(id),
+  );
 
   if (!reservation) return null;
 
   reservation.status = "cancelled";
   reservation.updatedAt = new Date().toISOString();
 
+  writeReservations(allReservations);
+
   return reservation;
+}
+
+export {
+  getAllReservations,
+  getReservationById,
+  createReservation,
+  updateReservationById,
+  cancelReservation,
 };
