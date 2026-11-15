@@ -20,10 +20,29 @@ function getReservationById(id) {
   );
 }
 
+function isBooked(date, time) {
+  const allReservations = readReservations();
+
+  const booking = allReservations.find(
+    (reservation) =>
+      reservation.date === date &&
+      reservation.time === time &&
+      reservation.status !== "cancelled",
+  );
+
+  if (booking) {
+    return true; // The date and time are already booked
+  }   
+  return false; // The date and time are available
+}
+
 // Create a reservation
 function createReservation(data) {
   if (!data.name || !data.guests || !data.date || !data.time) {
     throw new Error("Missing required fields: name, guests, date, time");
+  }
+  if (isBooked(data.date, data.time)) {
+    return null; // The selected date and time are already booked
   }
 
   const allReservations = readReservations();
