@@ -16,14 +16,14 @@ A RESTful backend API for creating, viewing, updating, cancelling and deleting r
 
 ## Requirements
 
-- Node.js 18 or later
+- Node.js 18 or latest
 - npm
 - Postman
 
 ## Installation
 
 ```Guides:
-git clone YOUR_PUBLIC_GITHUB_REPOSITORY_URL
+git clone https://github.com/KennyGee01/G5MiniProject
 cd Group_5_mini_project
 npm install
 ```
@@ -61,45 +61,44 @@ Group_5_mini_project/
 │     |__ reservationService.js
 ├──   utils/
 |     |__helpers.js
-│     |__ validation.js
 ├──   .gitignore
 |──   app.js
 ├──   package-lock.json
 |──   package.json
 |──   README.md
 |__   server.js
+
 ```
 
 ## Reservation fields
 
-| Field | Type | Description |
-|---            |---                    |---              |
-| id            | string                | Generated UUID |
-| customerName  | string                | Customer's name |
-| date          | string                | Reservation date in `YYYY-MM-DD` |
-| time          | string                | Time in 24-hour `HH:MM` format |
-| numberOfGuests | number               | Integer from 1 to 20 |
-| tableNumber   | number                | Table allocated by the API |
-| status        | string                | `confirmed` or `cancelled` |
-| createdAt     | string                | Creation timestamp in ISO 8601 |
-| updatedAt     | string                | Last-update timestamp in ISO 8601
+| Field           | Type                  | Description |
+|---              |---                    |---              |
+| id              | string                | Generated UUID |
+| name            | string                | Customer's name |
+| date            | string                | Reservation date in `YYYY-MM-DD` |
+| time            | string                | Time in 24-hour `HH:MM` format |
+| guests          | number                | Integer from 1 to 20 |
+| status          | string                | `confirmed` or `cancelled` |
+| createdAt       | string                | Creation timestamp in ISO 8601 |
+| updatedAt       | string                | Last-update timestamp in ISO 8601
 
 ## API endpoints
 
-The assignment's suggested `/resources` path is used for reservations.
+The assignment's path is `/reservations`.
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/resources` | Get all reservations |
-| GET | `/resources/:id` | Get specific reservation |
-| POST | `/resources` | Create a reservation |
-| PUT | `/resources/:id` | Update an existing reservation fields |
-| DELETE | `/resources/:id` | Delete a reservation |
-| GET | `/resources/availability?date=YYYY-MM-DD&time=HH:MM` | Check available tables |
+| Method            | Endpoint | Purpose |
+|---  |---|---|
+| GET | `/reservations` | Get all reservations |
+| GET | `/reservations/:id` | Get specific reservation |
+| POST | `/reservations` | Create a reservation |
+| PUT | `/reservations/:id` | Update an existing reservation fields |
+| DELETE | `/reservations/:id` | Delete a reservation |
+| GET | `/reservations/availability?date=YYYY-MM-DD&time=HH:MM` | Check available tables |
 
 ### Create a reservation
 
-`POST /resources`
+`POST /reservations`
 
 Header: `Content-Type: application/json`
 
@@ -120,7 +119,7 @@ A successful creation returns `201 Created`, the reservation object, a generated
 
 ### Update a reservation
 
-`PUT /resources/:id`
+`PUT /reservations/:id`
 
 Send one or more fields to update, for example:
 
@@ -135,7 +134,7 @@ The API validates supplied fields and updates `updatedAt`. This implementation a
 
 ### Check availability
 
-`GET /resources/availability?date=2099-12-15&time=18:30`
+`GET /reservations/availability?date=2099-12-15&time=18:30`
 
 The response lists available table numbers and the number remaining. A reservation occupies one table at its exact date and time. This is a simplified availability model for the project, not a full restaurant seating or time-slot scheduling system.
 
@@ -149,7 +148,7 @@ The response lists available table numbers and the number remaining. A reservati
 
 ## Run tests
 
-```bash
+```Code:
 npm test
 ```
 
@@ -196,20 +195,26 @@ Then open a Pull Request on GitHub.
 
 Update this section with the actual names and GitHub usernames of all four contributors, and briefly describe each person's real contribution.
 
-| Member | GitHub username | Contribution |
-|---|---|---|
-| Member 1 | Add username | Routes |
-| Member 2 | Add username | File storage |
-| Member 3 | Add username | Validation |
-| Member 4 | Add username | Testing and README |
+| Stages  | GitHub username | Contribution |
+|---      |---              |---            |
+| Stage 1 | Ganiyu          | Project setup, Github Repository and collaboration |
+| Stage 2 | Ganiyu, Adeolu & Mubarak | Data structure and function interface |
+| Stage 3 | Adeolu & John | File storage implementation |
+| Stage 4 | Mubarak & Guttabingi | Reservation Business Logic |
+| Stage 5 | Ganiyu & Jacqueline | API Routes Implementation |
+| Stage 6 | Ogundana, Bello & Anifowose | Validation Implementation |
+| Stage 7 | Adeolu & Ogundana | Individual Endpoint Testing |
+| Stage 8 | Jacqueline, Guttabingi & Bello | README/ Documentation |
+| Stage 9 | John & Anifowose | Integration and Review |
+| Stage10 | All members       |Final Testing and submission|
 
 ## Important submission checklist
 
-- [ ] Repository visibility is Public.
-- [ ] only nine out of 10 members are added as repository collaborators.
-- [ ] All nine members have made genuine commits/contributions.
-- [ ] Feature branches and Pull Requests are visible.
-- [ ] All endpoints have been tested.
-- [ ] `npm test` passes.
-- [ ] README contains actual team details.
-- [ ] No `node_modules` folder is committed.
+- Repository visibility is Public.
+- Only nine out of 10 members are added as repository collaborators.
+- All nine members have made genuine commits/contributions.
+- Feature branches and Pull Requests are visible.
+- All endpoints have been tested.
+- `npm test` passes.
+- README contains actual team details.
+- No `node_modules` folder is committed.
