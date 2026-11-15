@@ -35,6 +35,12 @@ export const getReservation = (req, res) => {
 export const addReservation = (req, res) => {
   try {
     const newReservation = reservationService.createReservation(req.body);
+    
+    if (!newReservation) {
+      return res
+        .status(statusCode.BAD_REQUEST)
+        .json({ error: "The selected date and time are unavailable." });
+    }
 
     res.status(statusCode.CREATED).json(newReservation);
   } catch (error) {
