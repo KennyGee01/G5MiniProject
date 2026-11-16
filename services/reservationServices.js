@@ -20,14 +20,15 @@ function getReservationById(id) {
   );
 }
 
-function isBooked(date, time) {
+function isBooked(date, time, ignoreId) {
   const allReservations = readReservations();
 
   const booking = allReservations.find(
     (reservation) =>
       reservation.date === date &&
       reservation.time === time &&
-      reservation.status !== "cancelled",
+      reservation.status !== "cancelled" &&
+      Number(reservation.id) !== Number(ignoreId) //skip the one being updated if ignoreId is provided
   );
 
   if (booking) {
@@ -85,6 +86,13 @@ function updateReservationById(id, { name, guests, date, time }) {
 
   if (!reservation) return null;
 
+  const newDate = date || reservation.date;
+  const newTime = time || reservation.time;
+
+  if (isBooked(newDate, newTime, id)) {
+    throw new Error("The selected date and time are unavailable");
+  }
+  
   if (name !== undefined) reservation.name = name;
   if (guests !== undefined) reservation.guests = guests;
   if (date !== undefined) reservation.date = date;
