@@ -164,6 +164,7 @@ Suggested feature branches:
 
 - `feature/routes`
 - `feature/file-storage`
+- `feature/businessLogic`
 - `feature/validation`
 - `feature/testing-readme`
 
@@ -190,10 +191,9 @@ git push -u origin feature/your-task
 ```
 
 Then open a Pull Request on GitHub.
+Request review and wait for approval of the PR
 
 ## Team members
-
-Update this section with the actual names and GitHub usernames of all four contributors, and briefly describe each person's real contribution.
 
 | Stages  | GitHub username | Contribution |
 |---      |---              |---            |
@@ -201,18 +201,18 @@ Update this section with the actual names and GitHub usernames of all four contr
 | Stage 2 | Ganiyu, Adeolu & Mubarak | Data structure and function interface |
 | Stage 3 | Adeolu & John | File storage implementation |
 | Stage 4 | Mubarak & Guttabingi | Reservation Business Logic |
-| Stage 5 | Ganiyu & Jacqueline | API Routes Implementation |
+| Stage 5 | Ganiyu & Jacqueline & Odoh | API Routes Implementation |
 | Stage 6 | Ogundana, Bello & Anifowose | Validation Implementation |
 | Stage 7 | Adeolu & Ogundana | Individual Endpoint Testing |
 | Stage 8 | Jacqueline, Guttabingi & Bello | README/ Documentation |
-| Stage 9 | John & Anifowose | Integration and Review |
+| Stage 9 | John & Anifowose & Odoh | Integration and Review |
 | Stage10 | All members       |Final Testing and submission|
 
 ## Important submission checklist
 
 - Repository visibility is Public.
-- Only nine out of 10 members are added as repository collaborators.
-- All nine members have made genuine commits/contributions.
+- All the  10 members are added as collaborators.
+- All the members have made genuine commits/contributions.
 - Feature branches and Pull Requests are visible.
 - All endpoints have been tested.
 - `npm test` passes.
