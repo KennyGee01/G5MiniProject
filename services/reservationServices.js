@@ -12,7 +12,7 @@ const reservations = [
     name: "Adonis",
     guests: 2,
     date: "2026-12-23",
-    time: "12:00",
+    time: "14:00",
     status: "confirmed",
   },
 ];
