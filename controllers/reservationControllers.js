@@ -49,6 +49,7 @@ export const addReservation = (req, res) => {
 };
 
 export const updateReservation = (req, res) => {
+  try {
   const updatedReservation = reservationService.updateReservationById(
     parseInt(req.params.id),
     req.body,
@@ -61,6 +62,9 @@ export const updateReservation = (req, res) => {
   }
 
   res.status(statusCode.OK).json(updatedReservation);
+} catch (error) {
+  return res.status(statusCode.BAD_REQUEST).json({ error: error.message });
+}
 };
 
 export const cancelReservation = (req, res) => {
