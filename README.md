@@ -211,8 +211,8 @@ Update this section with the actual names and GitHub usernames of all four contr
 ## Important submission checklist
 
 - Repository visibility is Public.
-- Only nine out of 10 members are added as repository collaborators.
-- All nine members have made genuine commits/contributions.
+- All the  10 members are added as collaborators.
+- All the members have made genuine commits/contributions.
 - Feature branches and Pull Requests are visible.
 - All endpoints have been tested.
 - `npm test` passes.
